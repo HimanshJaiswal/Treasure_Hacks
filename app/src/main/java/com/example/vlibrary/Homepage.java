@@ -71,18 +71,9 @@ public class Homepage extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
 
     }
-    public void ClickLogo(View view)
-    {
-        closeDrawer(drawerLayout);
-    }
 
-    public static void closeDrawer(DrawerLayout drawerLayout)
-    {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
-        {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
+
+
     public void ClickCurrent(View view)
     {
         Intent intent2 = new Intent(view.getContext(),CurrentlyReading.class);
