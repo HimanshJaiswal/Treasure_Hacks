@@ -1,148 +1,122 @@
-package com.example.vlibrary;
+package com.VIT.vlibrary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Category extends AppCompatActivity {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class Category extends AppCompatActivity implements myAdapter2.ItemClickListener{
+
+
     public Button button;
     DrawerLayout drawerLayout;
+    DatabaseReference database;
+    ArrayList<Books> computerBooksList;
+    RecyclerView computerScienceBooks;
+    myAdapter2 computerAdapter;
+    ArrayList<Books> MechanicalBooksList;
+    RecyclerView MechanicalBooks;
+    myAdapter2 MechanicalAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.category);
-        Button b1=(Button)findViewById(R.id.b1);
-        Button b2=(Button)findViewById(R.id.b2);
+        setContentView(R.layout.activity_category);
+
+
+        computerScienceBooks = findViewById(R.id.computerScienceList);
+        computerScienceBooks.setHasFixedSize(true);
+        computerBooksList = new ArrayList<Books>();
+        computerScienceBooks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        computerAdapter = new myAdapter2(this, computerBooksList,this);
+        computerScienceBooks.setAdapter(computerAdapter);
+
+
+        MechanicalBooks = findViewById(R.id.mechanicalList);
+        MechanicalBooks.setHasFixedSize(true);
+        MechanicalBooksList = new ArrayList<Books>();
+        MechanicalBooks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        MechanicalAdapter = new myAdapter2(this, MechanicalBooksList,this);
+        MechanicalBooks.setAdapter(MechanicalAdapter);
+
         Button b3=(Button)findViewById(R.id.b3);
-        Button b4=(Button)findViewById(R.id.b4);
-        Button b5=(Button)findViewById(R.id.b5);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Category.this,CompSci.class);
-                startActivity(intent);
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Category.this,RMAE.class);
-                startActivity(intent);
-            }
-        });
+
+
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Category.this,psychology.class);
-                startActivity(intent);
-            }
-        });
-        b4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Category.this,Philosophy.class);
-                startActivity(intent);
-
-            }
-        });
-        b5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Category.this,Others.class);
+                Intent intent=new Intent(Category.this,Psychology.class);
                 startActivity(intent);
             }
         });
 
-
-        drawerLayout=findViewById(R.id.drawer_layout);
-    }
-    public void ClickMenu(View view)
-    {
-        openDrawer(drawerLayout);
-
-    }
-
-    static void openDrawer(DrawerLayout drawerLayout)
-    {
-        drawerLayout.openDrawer(GravityCompat.START);
-
-    }
-    public void ClickLogo(View view)
-    {
-        closeDrawer(drawerLayout);
-    }
-
-    public static void closeDrawer(DrawerLayout drawerLayout) {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);}
-    }
-    public void ClickCurrent(View view)
-    {
-
-        redirectActivity(this,CurrentlyReading.class);
-
-    }
-    public void ClickCategory(View view)
-    {
-
-        redirectActivity(this,Category.class);
-
-    }
-    public void ClickAboutUs(View view)
-    {
-
-        redirectActivity(this,AboutUs.class);
-
-    }
-    public void ClickLogout(View view)
-    {
-        logout(this);
-
-
-    }
-
-    public static void logout(Activity activity) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(activity);
-        builder.setTitle("Logout");
-        builder.setMessage("are you sure,you want to logout ?");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        database = FirebaseDatabase.getInstance(" https://vlibrary-fc171-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Computer Science");
+        database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                activity.finishAffinity();
-                System.exit(0);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                currentlyReadingList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+                    Books book = snapshot.getValue(Books.class);
+                    computerBooksList.add(book);
+
+                }
+
+                computerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+        database = FirebaseDatabase.getInstance(" https://vlibrary-fc171-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Mechanical Engineering");
+        database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                currentlyReadingList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+                    Books book = snapshot.getValue(Books.class);
+                    MechanicalBooksList.add(book);
+
+                }
+
+                MechanicalAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        builder.show();
+
+
     }
-
-
-    public static void redirectActivity(Activity activity,Class aClass) {
-        Intent intent =new Intent(activity,aClass);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
-
     @Override
-    protected void onPause() {
-        super.onPause();
-        Homepage.closeDrawer(drawerLayout);
-
+    public void onClick(View view, int position)
+    {
+        Books book = computerAdapter.list.get(position);
+        Intent i = new Intent(getApplicationContext(),PDFViewer.class);
+//        Log.d(TAG, "URL: " + book.getUrl());
+        i.putExtra("URL", book.getUrl());
+        i.putExtra("pdfName", book.getTitle());
+        startActivity(i);
     }
 }
