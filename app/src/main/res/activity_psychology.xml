@@ -4,35 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shareApp">
+    tools:context=".Psychology">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="173dp"
-        android:layout_height="123dp"
-        android:background="#FFFFFF"
+
+    <ImageView
+        android:id="@+id/bk2"
+        android:layout_width="335dp"
+        android:layout_height="438dp"
+        android:foreground="@drawable/psycho"
+        android:src="@drawable/ic__book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286"
-        app:srcCompat="@drawable/ic_share_24"
-        app:tint="@color/black" />
+        app:layout_constraintVertical_bias="0.118" />
 
     <TextView
-        android:id="@+id/textView7"
-        android:layout_width="312dp"
-        android:layout_height="102dp"
+        android:id="@+id/book2"
+        android:layout_width="226dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="112dp"
         android:gravity="center"
-        android:text="Tap Above icon To share"
+        android:text="PSYCHOLOGY"
         android:textColor="@color/black"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
-
+        app:layout_constraintTop_toBottomOf="@+id/bk1"
+        app:layout_constraintVertical_bias="0.46" />
 </androidx.constraintlayout.widget.ConstraintLayout>

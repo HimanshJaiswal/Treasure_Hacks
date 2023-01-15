@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="Homepage">
+    tools:context="HomePage">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/myReadings"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -19,7 +19,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/mostRead"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -30,7 +30,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/authors"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -41,12 +41,13 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/newBooks"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:backgroundTint="#6699ff"
         android:text="New Books"
+        android:onClick="ClickNewBooks"
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="20dp" />
